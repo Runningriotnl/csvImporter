@@ -1,12 +1,14 @@
 package com.company.organization;
 
+import com.company.Reader;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganizationReader {
+public class OrganizationReader implements Reader {
 
     private OrganizationParser orgParser = new OrganizationParser();
 

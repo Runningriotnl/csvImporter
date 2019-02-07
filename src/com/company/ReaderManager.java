@@ -5,45 +5,31 @@ import com.company.organization.OrganizationReader;
 import com.company.person.Person;
 import com.company.person.PersonReader;
 
-import java.util.Collections;
-import java.util.List;
-
 public class ReaderManager {
-    private PersonReader personReader;
-    private OrganizationReader organizationReader;
 
-    private Writer w = new Writer();
-
-    public void chooseReader(String inputFileName) {
+    public Reader chooseReader(String inputFileName) {
         String cleanFilename = stripPath(inputFileName);
+        Reader reader;
 
         switch (cleanFilename) {
             case "persons.csv":
                 System.out.println("File is a csv containing persons.");
-                personReader = new PersonReader();
-                List<Person> personList = personReader.readFile(inputFileName);
-                System.out.println("Sorting the list based on first names.");
-                Collections.sort(personList);
-                w.writePerson(personList);
+                reader = new PersonReader();
                 break;
             case "organisations.csv":
                 System.out.println("File is a csv containing organizations.");
-                organizationReader = new OrganizationReader();
-                List<Organization> orgList = organizationReader.readFile(inputFileName);
-                w.writeOrganization(orgList);
+                reader = new OrganizationReader();
                 break;
             case "phones.csv":
-                System.out.println("No implementation for phones yet.");
-                break;
+                throw new UnsupportedOperationException("No implementation for phones yet.");
             case "users.csv":
-                System.out.println("No implementation for users yet.");
-                break;
+                throw new UnsupportedOperationException("No implementation for users yet.");
             case "phonelines.csv":
-                System.out.println("No implementation for phonelines yet.");
-                break;
+                throw new UnsupportedOperationException("No implementation for phonelines yet.");
             default:
                 throw new IllegalArgumentException("Filename must be: persons.csv, organisations.csv, phones.csv, users.csv or phonelines.csv");
         }
+        return reader;
     }
 
     private String stripPath(String inputFileName) {
