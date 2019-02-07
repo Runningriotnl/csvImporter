@@ -9,7 +9,7 @@ public class PersonParser {
             throw new IllegalArgumentException("rawPerson must not be null.");
         }
 
-        String[] splitPerson = rawPerson.split(",");
+        String[] splitPerson = rawPerson.split(",", -1);
 
         try {
 

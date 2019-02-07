@@ -6,7 +6,7 @@ public class OrganizationParser {
             throw new IllegalArgumentException("rawOrg must not be null.");
         }
 
-        String[] splitOrg = rawOrg.split(",");
+        String[] splitOrg = rawOrg.split(",", -1);
 
         try {
             String name = splitOrg[0];
