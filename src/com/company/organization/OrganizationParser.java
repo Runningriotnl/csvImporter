@@ -1,4 +1,4 @@
-package com.company;
+package com.company.organization;
 
 public class OrganizationParser {
     public Organization parseToOrg(String rawOrg) {

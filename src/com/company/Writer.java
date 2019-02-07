@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.organization.Organization;
+import com.company.person.Person;
+
 import java.util.List;
 
 public class Writer {

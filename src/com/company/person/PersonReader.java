@@ -1,4 +1,4 @@
-package com.company;
+package com.company.person;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

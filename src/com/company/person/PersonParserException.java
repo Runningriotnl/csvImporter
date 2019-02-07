@@ -1,4 +1,4 @@
-package com.company;
+package com.company.person;
 
 public class PersonParserException extends RuntimeException {
     public PersonParserException() {

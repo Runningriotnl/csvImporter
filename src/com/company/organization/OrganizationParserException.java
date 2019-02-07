@@ -1,4 +1,4 @@
-package com.company;
+package com.company.organization;
 
 public class OrganizationParserException extends RuntimeException {
     public OrganizationParserException(String message) {

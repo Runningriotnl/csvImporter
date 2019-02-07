@@ -1,5 +1,10 @@
 package com.company;
 
+import com.company.organization.Organization;
+import com.company.organization.OrganizationReader;
+import com.company.person.Person;
+import com.company.person.PersonReader;
+
 import java.util.Collections;
 import java.util.List;
 

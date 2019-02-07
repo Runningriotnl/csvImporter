@@ -1,4 +1,6 @@
-package com.company;
+package com.company.person;
+
+import com.company.organization.Organization;
 
 import java.util.Objects;
 
