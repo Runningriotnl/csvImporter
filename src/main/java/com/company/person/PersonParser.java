@@ -11,6 +11,10 @@ public class PersonParser {
 
         String[] splitPerson = rawPerson.split(",", -1);
 
+        if(splitPerson.length != 26){
+            throw new IllegalArgumentException("Input format is wrong");
+        }
+
         try {
 
             String userName = splitPerson[0];

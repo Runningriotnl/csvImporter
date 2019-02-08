@@ -27,7 +27,7 @@ public class PersonParserTest {
         assertEquals("Extension Number should match.", (Integer) 208, person.getExtensionNumber());
     }
 
-    @Test(expected = PersonParserException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void emptyStringTest() {
         PersonParser personParser = new PersonParser();
         String rawPerson = "";
@@ -37,7 +37,7 @@ public class PersonParserTest {
     @Test
     public void onlyUserNameTest() {
         PersonParser personParser = new PersonParser();
-        String rawPerson = "carla,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawPerson = "carla,,,,,,,,,,,,,,,,,,,,,,,,,";
         Person person = personParser.parseToPerson(rawPerson);
         assertEquals("Username should match.", "carla", person.getUserName());
     }
@@ -45,7 +45,7 @@ public class PersonParserTest {
     @Test
     public void onlyUserNameAndExtensionTest() {
         PersonParser personParser = new PersonParser();
-        String rawPerson = "carla,,,,,,,,,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawPerson = "carla,,,,,,,,,4,,,,,,,,,,,,,,,,";
         Person person = personParser.parseToPerson(rawPerson);
         assertEquals("Username should match.", "carla", person.getUserName());
         assertEquals("Extension Number should match.", (Integer) 4, person.getExtensionNumber());
@@ -83,19 +83,18 @@ public class PersonParserTest {
         assertEquals("Organization should match.", org, person.getOrg());
     }
 
-    @Test(expected = PersonParserException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void commaAddedBeforeExtensionInFieldsTest() {
         PersonParser personParser = new PersonParser();
         String rawPerson = "carla,C.,Carla,,,v,Fairy, Tail,carla@fairytail.example.com,,208,,,,,,,,,,,Fairy Hills,,,Magnolia Town,Fiore,";
         Person person = personParser.parseToPerson(rawPerson);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void commaAddedAfterExtensionInFieldsTest() {
         PersonParser personParser = new PersonParser();
         String rawPerson = "carla,C.,Carla,,,v,Fairy Tail,carla@fairytail.example.com,,208,,06738,434,,,,test@fake.com,,,,,Fairy Hills,,,Magnolia Town,Fiore,";
         Person person = personParser.parseToPerson(rawPerson);
-        assertEquals("Private email should match.", "test@fake.com", person.getPrivateEmail());
     }
 
 
