@@ -18,7 +18,13 @@ public class PersonParser {
             String lastName = splitPerson[4];
             Organization org = new Organization(splitPerson[6]);
             String email = splitPerson[7];
-            int extensionNumber = Integer.parseInt(splitPerson[9]);
+            Integer extensionNumber;
+            if(splitPerson[9] == null || splitPerson[9].equals("")){
+                extensionNumber = null;
+            }
+            else {
+                extensionNumber = Integer.parseInt(splitPerson[9]);
+            }
             String mobileNumber = splitPerson[11];
 
             Person parsedPerson = new Person(userName, firstName, lastName, org, email, extensionNumber, mobileNumber);

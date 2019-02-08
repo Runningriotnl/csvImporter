@@ -13,7 +13,7 @@ public class OrganizationParser {
             String email = splitOrg[4];
             String phoneNumber = splitOrg[6];
 
-            Organization parsedOrganization = new Organization(name, email,phoneNumber);
+            Organization parsedOrganization = new Organization(name, email, phoneNumber);
 
             return parsedOrganization;
 

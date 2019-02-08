@@ -10,12 +10,12 @@ public class Person implements Comparable<Person>{
     private String lastName;
     private Organization org;
     private String email;
-    private int extensionNumber;
+    private Integer extensionNumber;
     private String mobileNumber;
     private String privateEmail;
     private String privateMobileNumber;
 
-    public Person(String userName, String firstName, String lastName, Organization org, String email, int extensionNumber, String mobileNumber) {
+    public Person(String userName, String firstName, String lastName, Organization org, String email, Integer extensionNumber, String mobileNumber) {
         if(userName == null) {
             throw new IllegalArgumentException("Username is required");
         }
@@ -58,7 +58,7 @@ public class Person implements Comparable<Person>{
         return email;
     }
 
-    public int getExtensionNumber() {
+    public Integer getExtensionNumber() {
         return extensionNumber;
     }
 
