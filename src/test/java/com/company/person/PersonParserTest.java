@@ -3,7 +3,6 @@ package com.company.person;
 import com.company.organization.Organization;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 
 public class PersonParserTest {
