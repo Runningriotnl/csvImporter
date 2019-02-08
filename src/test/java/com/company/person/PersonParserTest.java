@@ -36,15 +36,15 @@ public class PersonParserTest {
     @Test
     public void onlyUserNameTest() {
         PersonParser personParser = new PersonParser();
-        String rawPerson = "carla,,,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawPerson = "X,,,,,,,,,,,,,,,,,,,,,,,,,";
         Person person = personParser.parseToPerson(rawPerson);
-        assertEquals("Username should match.", "carla", person.getUserName());
+        assertEquals("Username should match.", "X", person.getUserName());
     }
 
     @Test
     public void onlyUserNameAndExtensionTest() {
         PersonParser personParser = new PersonParser();
-        String rawPerson = "carla,,,,,,,,,4,,,,,,,,,,,,,,,,";
+        String rawPerson = "X,,,,,,,,,4,,,,,,,,,,,,,,,,";
         Person person = personParser.parseToPerson(rawPerson);
         assertEquals("Username should match.", "carla", person.getUserName());
         assertEquals("Extension Number should match.", (Integer) 4, person.getExtensionNumber());

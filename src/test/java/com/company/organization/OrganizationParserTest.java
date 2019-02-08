@@ -16,15 +16,28 @@ public class OrganizationParserTest {
     @Test
     public void inputMatchesFieldsTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganization = "Blue Pegasus,,,,guild@bluepegasus.example.com,,152511411,,,,,,,,,,,,,Blue Pegasus Guild,,,,,";
+        String rawOrganization = "X,,,,Y,,Z,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
-        assertEquals("Organization name must match." , "Blue Pegasus", organization.getName());
-        assertEquals("Organization email must match." , "guild@bluepegasus.example.com", organization.getEmail());
-        assertEquals("Organization phone number must match." , "152511411", organization.getPhoneNumber());
+        assertEquals("Organization name must match." , "X", organization.getName());
+        assertEquals("Organization email must match." , "Y", organization.getEmail());
+        assertEquals("Organization phone number must match." , "Z", organization.getPhoneNumber());
+    }
+
+    @Test(expected = OrganizationParserException.class)
+    public void emptyStringInputTest() {
+        OrganizationParser organizationParser = new OrganizationParser();
+        String rawOrganization = "";
+        organizationParser.parseToOrg(rawOrganization);
     }
 
     @Test
-    public void emptyStringInputTest() {
+    public void onlyOrganizationNameTest() {
         OrganizationParser organizationParser = new OrganizationParser();
+        String rawOrganzation = "X,,,,,,,,,,,,,,,,,,,,,,,";
+        Organization organization = organizationParser.parseToOrg(rawOrganzation);
+        assertEquals("Organization name must match." , "X", organization.getName());
+        assertEquals("Organization email must match." , "", organization.getEmail());
+        assertEquals("Organization phone number must match." , "", organization.getPhoneNumber());
+
     }
 }
