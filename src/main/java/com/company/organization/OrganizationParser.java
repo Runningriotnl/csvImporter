@@ -8,6 +8,10 @@ public class OrganizationParser {
 
         String[] splitOrg = rawOrg.split(",", -1);
 
+        if (splitOrg.length != 26) {
+            throw new OrganizationParserException("Input format is wrong");
+        }
+
         try {
             String name = splitOrg[0];
             String email = splitOrg[4];

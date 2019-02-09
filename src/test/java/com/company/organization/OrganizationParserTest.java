@@ -33,11 +33,17 @@ public class OrganizationParserTest {
     @Test
     public void onlyOrganizationNameTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganzation = "X,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawOrganzation = "X,,,,,,,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganzation);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , "", organization.getEmail());
         assertEquals("Organization phone number must match." , "", organization.getPhoneNumber());
+    }
 
+    @Test(expected = OrganizationParserException.class)
+    public void extraCommaInCSVTest() {
+        OrganizationParser organizationParser = new OrganizationParser();
+        String rawOrganization = ",,,,,,,,,,,,,,,,,,,,,,,,,,,";
+        Organization organization = organizationParser.parseToOrg(rawOrganization);
     }
 }
