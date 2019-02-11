@@ -33,8 +33,8 @@ public class OrganizationParserTest {
     @Test
     public void onlyOrganizationNameTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganzation = "X,,,,,,,,,,,,,,,,,,,,,,,,,";
-        Organization organization = organizationParser.parseToOrg(rawOrganzation);
+        String rawOrganization = "X,,,,,,,,,,,,,,,,,,,,,,,,,";
+        Organization organization = organizationParser.parseToOrg(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , "", organization.getEmail());
         assertEquals("Organization phone number must match." , "", organization.getPhoneNumber());
