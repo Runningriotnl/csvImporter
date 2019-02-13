@@ -5,10 +5,14 @@ import java.util.List;
 public class Main {
     private ReaderManager readerManager;
     private Writer writer;
+    private MakeHttpRequest request;
+    private String baseUrl = "http://10.78.40.157";
 
     public Main() {
         readerManager = new ReaderManager();
+        request = new MakeHttpRequest();
         writer = new Writer();
+
     }
 
     public static void main(String[] args) {
@@ -21,7 +25,10 @@ public class Main {
         Reader reader = readerManager.chooseReader(filePath);
 
         List list = reader.readFile(filePath);
-        System.out.println("Sorting the list based on first names.");
+
+        request.postAddressableToServer(baseUrl, list);
+
+
 //        Collections.sort(personList);
         writer.write(list);
     }

@@ -9,14 +9,7 @@ public class Writer {
 
     public void writePerson(Person p) {
 
-        String personName;
-        // Only want to add space between names if both are provided
-        if(!p.getFirstName().equals("") && !p.getLastName().equals("")){
-            personName = p.getFirstName()  + " " + p.getLastName();
-        } else {
-            //If on of the names is provided the format will be okay, if none of the names is provided will become ""
-            personName = p.getFirstName() + p.getLastName();
-        }
+        String personName = p.getName();
         String personUserName = p.getUserName();
         String personOrgName = p.getOrg().getName();
         String personExtension = (p.getExtensionNumber() == null) ? "" : p.getExtensionNumber().toString();

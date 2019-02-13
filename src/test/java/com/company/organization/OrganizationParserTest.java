@@ -16,7 +16,7 @@ public class OrganizationParserTest {
     @Test
     public void inputMatchesFieldsTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganization = "X,,,,Y,,Z,,,,,,,,,,,,,,,,,,,";
+        String rawOrganization = "X,,,,Y,,Z,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , "Y", organization.getEmail());
@@ -33,7 +33,7 @@ public class OrganizationParserTest {
     @Test
     public void onlyOrganizationNameTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganization = "X,,,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawOrganization = "X,,,,,,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , "", organization.getEmail());
@@ -43,7 +43,7 @@ public class OrganizationParserTest {
     @Test(expected = OrganizationParserException.class)
     public void extraCommaInCSVTest() {
         OrganizationParser organizationParser = new OrganizationParser();
-        String rawOrganization = ",,,,,,,,,,,,,,,,,,,,,,,,,,,";
+        String rawOrganization = ",,,,,,,,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
     }
 }

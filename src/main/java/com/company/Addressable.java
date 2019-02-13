@@ -1,6 +1,7 @@
 package com.company;
 
-public class Addressable<T> {
+
+public class Addressable {
 
     private String name;
     private String commonName;
@@ -45,9 +46,7 @@ public class Addressable<T> {
     }
 
     public String toJsonObject() {
-        if(typeO)
-        String jsonObjectString = "{\"objectType\":\"Organisation\", \"commonName\":\"" + this.name +"\"}";
-        return jsonObjectString;
+        return "";
     }
 
 }

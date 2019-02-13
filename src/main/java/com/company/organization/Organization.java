@@ -1,8 +1,10 @@
 package com.company.organization;
 
+import com.company.Addressable;
+
 import java.util.Objects;
 
-public class Organization {
+public class Organization extends Addressable {
     private String name;
     private String email;
     private String phoneNumber;
@@ -54,5 +56,10 @@ public class Organization {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String toJsonObject() {
+        String jsonObjectString = "{\"objectType\":\"Organisation\", \"commonName\":\"" + getName() + "\"}";
+        return jsonObjectString;
     }
 }

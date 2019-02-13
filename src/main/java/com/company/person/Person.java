@@ -1,10 +1,11 @@
 package com.company.person;
 
+import com.company.Addressable;
 import com.company.organization.Organization;
 
 import java.util.Objects;
 
-public class Person implements Comparable<Person>{
+public class Person extends Addressable implements Comparable<Person>{
     private String userName;
     private String firstName;
     private String lastName;
@@ -30,12 +31,14 @@ public class Person implements Comparable<Person>{
 
     }
 
-    public void setPrivateEmail(String privateEmail) {
+    public Person setPrivateEmail(String privateEmail) {
         this.privateEmail = privateEmail;
+        return this;
     }
 
-    public void setPrivateMobileNumber(String privateMobileNumber) {
+    public Person setPrivateMobileNumber(String privateMobileNumber) {
         this.privateMobileNumber = privateMobileNumber;
+        return this;
     }
 
     public String getUserName() {
@@ -75,6 +78,18 @@ public class Person implements Comparable<Person>{
     }
 
     @Override
+    public String getName() {
+        String personName;
+        if(!getFirstName().equals("") && !getLastName().equals("")){
+            personName = getFirstName()  + " " + getLastName();
+        } else {
+            //If on of the names is provided the format will be okay, if none of the names is provided will become ""
+            personName = getFirstName() + getLastName();
+        }
+        return personName;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -105,5 +120,11 @@ public class Person implements Comparable<Person>{
     @Override
     public int compareTo(Person o) {
         return this.getFirstName().compareTo(o.getFirstName());
+    }
+
+
+    public String toJsonObject() {
+        String jsonObjectString = "{\"objectType\":\"Person\", \"commonName\":\"" + getLastName() + "\"}";
+        return jsonObjectString;
     }
 }

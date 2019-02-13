@@ -8,7 +8,7 @@ public class OrganizationParser {
 
         String[] splitOrg = rawOrg.split(",", -1);
 
-        if (splitOrg.length != 26) {
+        if (splitOrg.length != 25) {
             throw new OrganizationParserException("Input format is wrong");
         }
 
