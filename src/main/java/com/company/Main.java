@@ -10,7 +10,7 @@ public class Main {
 
     public Main() {
         readerManager = new ReaderManager();
-        request = new MakeHttpRequest();
+        request = new MakeHttpRequest(baseUrl);
         writer = new Writer();
 
     }
@@ -26,7 +26,7 @@ public class Main {
 
         List list = reader.readFile(filePath);
 
-        request.postAddressableToServer(baseUrl, list);
+        request.postAddressableToServer(list);
 
 
 //        Collections.sort(personList);

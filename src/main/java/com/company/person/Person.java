@@ -123,8 +123,26 @@ public class Person extends Addressable implements Comparable<Person>{
     }
 
 
-    public String toJsonObject() {
-        String jsonObjectString = "{\"objectType\":\"Person\", \"commonName\":\"" + getLastName() + "\"}";
+    public String toJsonObject(Person person) {
+        String jsonObjectString;
+        if(!"".equals(person.getOrg().getName())){
+             jsonObjectString = "{\"objectType\":\"Person\", " +
+                 "\"commonName\":\"" + person.getLastName() + "\"," +
+                 "\"givenName\":\"" + person.getFirstName() + "\"," +
+                 "\"employments\": [{" +
+                     "\"commonName\":\"" + person.getOrg().getName() + "\"," +
+                     "\"organisation\": {" +
+                         "\"commonName\":\"" + person.getOrg().getName() + "\"," +
+                         "\"objectType\":\"Organisation\"}}" +
+             "]}";
+
+        } else {
+            jsonObjectString = "{\"objectType\":\"Person\", " +
+                "\"commonName\":\"" + person.getLastName() + "\"," +
+                    "\"givenName\":\"" + person.getFirstName() + "\"}";
+        }
         return jsonObjectString;
     }
+
+
 }

@@ -62,4 +62,5 @@ public class Organization extends Addressable {
         String jsonObjectString = "{\"objectType\":\"Organisation\", \"commonName\":\"" + getName() + "\"}";
         return jsonObjectString;
     }
+
 }

@@ -14,11 +14,16 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class MakeHttpRequest {
+    String baseUrl;
     String authToken = "xelion 250f54cf54c973b7a1559fe0f66c2973b7a1559fe0f66c2a8f5bc7d8b8935bf995bd9f22ecfc3c3ad963be03b61742286c9b5f1ec8b2c7f53650b76233fb9086cd2008fa7a5ff93db8414f4950310810838e4b6dedd633d1713dbce1e1ff66318170799d28c1736";
     Gson gson;
     Logger logger = LoggerFactory.getLogger(MakeHttpRequest.class);
 
-    public void postAddressableToServer(String baseUrl, List<Addressable> objectList) {
+    public MakeHttpRequest(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    public void postAddressableToServer(List<Addressable> objectList) {
         gson = new Gson();
         HttpResponse<JsonNode> jsonResponse;
         String apiUrl = baseUrl + "/api/v1/master/addressables";
@@ -38,6 +43,27 @@ public class MakeHttpRequest {
                 logger.error(e.toString());
             }
         }
+    }
+
+    public String getOrganizationOID(String orgName) {
+        gson = new Gson();
+        HttpResponse<JsonNode> jsonResponse;
+        String organizationOID = "";
+        String apiUrl = baseUrl + "/api/v1/master/addressables?name=" + orgName;
+        try {
+            jsonResponse = Unirest.get(apiUrl).header("Authorization", authToken).asJson();
+            logger.info("Status code: " + jsonResponse.getStatus() + " status text: " + jsonResponse.getStatusText());
+            Type listType = new TypeToken<DataList<Addressable>>() {}.getType();
+            DataList<Addressable> response = gson.fromJson(jsonResponse.getBody().toString(), listType);
+            List<Addressable> addressableList = response.getData();
+            organizationOID = addressableList.get(0).getOid();
+
+        } catch (UnirestException e) {
+            logger.error(e.toString());
+        }
+
+        return organizationOID;
+
     }
 
 }

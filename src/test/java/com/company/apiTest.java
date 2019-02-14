@@ -42,4 +42,31 @@ public class apiTest {
 
     }
 
+    @Test
+    public void getOrganizationOID() {
+        String orgName = "NieuwToegevoegd";
+        String baseUrl = "http://10.78.40.157";
+        gson = new Gson();
+        HttpResponse<JsonNode> jsonResponse;
+        String organizationOID = "";
+        String apiUrl = baseUrl + "/api/v1/master/addressables?name=" + orgName;
+        try {
+            jsonResponse = Unirest.get(apiUrl).header("Authorization", authToken).asJson();
+            logger.info("Status code: " + jsonResponse.getStatus() + " status text: " + jsonResponse.getStatusText());
+            Type objectType = new TypeToken<DataList<Addressable>>() {}.getType();
+            DataList<Addressable> response = gson.fromJson(jsonResponse.getBody().toString(), objectType);
+            List<Addressable> addressableList = response.getData();
+
+
+            organizationOID = addressableList.get(0).getOid();
+
+        } catch (UnirestException e) {
+            logger.error(e.toString());
+        }
+
+        logger.info(organizationOID);
+       // return organizationOID;
+
+    }
+
 }
