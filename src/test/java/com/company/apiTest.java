@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class apiTest {
-    String authToken = "xelion 250f54cf54c973b7a1559fe0f66c2973b7a1559fe0f66c2a8f5bc7d8b8935bf995bd9f22ecfc3c3ad963be03b61742286c9b5f1ec8b2c7f53650b76233fb9086cd2008fa7a5ff93db8414f4950310810838e4b6dedd633d1713dbce1e1ff66318170799d28c1736";
+    String authToken = "";
     Gson gson;
     Logger logger = LoggerFactory.getLogger(apiTest.class);
 
