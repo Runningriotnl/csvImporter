@@ -5,12 +5,12 @@ import java.util.List;
 public class Main {
     private ReaderManager readerManager;
     private Writer writer;
-    private MakeHttpRequest request;
+    private SendHttpRequest request;
     private String baseUrl = "http://10.78.40.157";
 
     public Main() {
         readerManager = new ReaderManager();
-        request = new MakeHttpRequest(baseUrl);
+        request = new SendHttpRequest(baseUrl);
         writer = new Writer();
 
     }

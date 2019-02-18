@@ -2,14 +2,18 @@ package com.company;
 
 import com.company.organization.Organization;
 import com.company.person.Person;
+import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class Writer {
+    Logger logger = LoggerFactory.getLogger(Writer.class);
 
     public void writePerson(Person p) {
 
-        String personName = p.getName();
+        String personName = p.getLastName();
         String personUserName = p.getUserName();
         String personOrgName = p.getOrg().getName();
         String personExtension = (p.getExtensionNumber() == null) ? "" : p.getExtensionNumber().toString();
@@ -29,22 +33,10 @@ public class Writer {
     }
 
     public void writeOrganization(Organization o) {
+        String orgAsJson = new Gson().toJson(o);
 
-        String organizationName = o.getName();
-        String organizationEmail = o.getEmail();
-        String organizationPhoneNumber = o.getPhoneNumber();
-        String[] organizationDescrption = { organizationName, organizationEmail, organizationPhoneNumber };
+        logger.info("Payload send as: " + orgAsJson);
 
-        for(int i = 0; i < organizationDescrption.length; i++) {
-            if( organizationDescrption[i].equals("")) {
-                organizationDescrption[i] = "not provided";
-            }
-        }
-
-
-
-        System.out.println("Organization " + organizationDescrption[0] + " is reachable on email at: " +
-                organizationDescrption[1] + " and through phone by: " + organizationDescrption[2] + ".");
     }
 
     public void write(List list) {

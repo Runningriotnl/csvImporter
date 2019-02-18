@@ -14,10 +14,8 @@ public class OrganizationParser {
 
         try {
             String name = assignValue(splitOrg[0]);
-            String email = assignValue(splitOrg[4]);
-            String phoneNumber = assignValue(splitOrg[6]);
 
-            Organization parsedOrganization = new Organization(name, email, phoneNumber);
+            Organization parsedOrganization = new Organization(name);
 
             return parsedOrganization;
 
