@@ -2,26 +2,20 @@ package com.company;
 
 
 public class Addressable {
-
-    private String name;
+    private String objectType;
     private String commonName;
     private String oid;
-    private String objectType;
 
     public Addressable() {
 
     }
 
-    public Addressable(String commonName, String objectType) {
-        this.commonName = commonName;
+    public Addressable(String objectType) {
+        //this.commonName = commonName;
         this.objectType = objectType;
-        this.name = null;
         this.oid = null;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public String getCommonName() {
         return commonName;
@@ -38,10 +32,9 @@ public class Addressable {
     @Override
     public String toString() {
         return "Addressable{" +
-                "name='" + name + '\'' +
+                "objectType='" + objectType + '\'' +
                 ", commonName='" + commonName + '\'' +
                 ", oid='" + oid + '\'' +
-                ", objectType='" + objectType + '\'' +
                 '}';
     }
 
