@@ -14,10 +14,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class MakeHttpRequest {
-    String baseUrl;
-    String authToken;
-    Gson gson;
-    Logger logger = LoggerFactory.getLogger(MakeHttpRequest.class);
+    private String baseUrl;
+    private String authToken = "xelion 76f49dc49dc2bab335f1ca513334d2bab335f1ca513334d8d0f8ab9e3c5bf8e04ae259e7cf10baecd778679cd61493ac7068785030d189a6987bc6f66948bf35fc320c8cec79264f3f83aa5f7764b4f3701abb8de99c42b611e6fb23de733559a3bea4dd55a248b";
+    private Gson gson;
+    private Logger logger = LoggerFactory.getLogger(MakeHttpRequest.class);
 
     public MakeHttpRequest(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -56,7 +56,9 @@ public class MakeHttpRequest {
             Type listType = new TypeToken<DataList<Addressable>>() {}.getType();
             DataList<Addressable> response = gson.fromJson(jsonResponse.getBody().toString(), listType);
             List<Addressable> addressableList = response.getData();
-            organizationOID = addressableList.get(0).getOid();
+            if(addressableList.size() > 0){
+                organizationOID = addressableList.get(0).getOid();
+            }
 
         } catch (UnirestException e) {
             logger.error(e.toString());
