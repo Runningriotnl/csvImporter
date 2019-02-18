@@ -10,14 +10,12 @@ public class Organization extends Addressable {
     private String phoneNumber;
 
     public Organization(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Organization name is required");
-        }
-
-        this.name = name;
+        this(name, null, null);
     }
 
     public Organization(String name, String email, String phoneNumber) {
+        super("Organisation");
+
         if(name == null) {
             throw new IllegalArgumentException("Organization name is required");
         }
