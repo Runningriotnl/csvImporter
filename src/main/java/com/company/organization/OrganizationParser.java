@@ -13,9 +13,9 @@ public class OrganizationParser {
         }
 
         try {
-            String name = splitOrg[0];
-            String email = splitOrg[4];
-            String phoneNumber = splitOrg[6];
+            String name = assignValue(splitOrg[0]);
+            String email = assignValue(splitOrg[4]);
+            String phoneNumber = assignValue(splitOrg[6]);
 
             Organization parsedOrganization = new Organization(name, email, phoneNumber);
 
@@ -27,5 +27,14 @@ public class OrganizationParser {
             throw new OrganizationParserException("Could not create Organization from rawOrg.", e);
         }
 
+    }
+
+    private String assignValue(String csvInput) {
+        if("".equals(csvInput)) {
+            return null;
+        }
+        else {
+            return csvInput;
+        }
     }
 }
