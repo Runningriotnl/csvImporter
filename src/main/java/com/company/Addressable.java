@@ -3,7 +3,6 @@ package com.company;
 
 public class Addressable {
     private String objectType;
-    private String commonName;
     private String oid;
 
     public Addressable() {
@@ -11,14 +10,13 @@ public class Addressable {
     }
 
     public Addressable(String objectType) {
-        //this.commonName = commonName;
         this.objectType = objectType;
         this.oid = null;
     }
 
-
-    public String getCommonName() {
-        return commonName;
+    public Addressable setOid(String oid) {
+        this.oid = oid;
+        return this;
     }
 
     public String getOid() {
@@ -33,14 +31,8 @@ public class Addressable {
     public String toString() {
         return "Addressable{" +
                 "objectType='" + objectType + '\'' +
-                ", commonName='" + commonName + '\'' +
                 ", oid='" + oid + '\'' +
                 '}';
     }
-
-    public String toJsonObject() {
-        return "";
-    }
-
 }
 
