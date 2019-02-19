@@ -10,10 +10,10 @@ import java.util.List;
 
 public class PersonReader implements Reader {
 
-    private PersonParser personParser = new PersonParser();
+    private PersonParser personParser;
 
-    public PersonReader() {
-
+    public PersonReader(PersonParser personParser) {
+        this.personParser = personParser;
     }
 
     public List<Person> readFile(String fileName) {
@@ -38,5 +38,3 @@ public class PersonReader implements Reader {
     }
 
 }
-
-

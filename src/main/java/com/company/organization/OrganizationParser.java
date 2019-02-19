@@ -1,5 +1,7 @@
 package com.company.organization;
 
+import com.company.XelionObjects.TelecomAddress;
+
 public class OrganizationParser {
     public Organization parseToOrg(String rawOrg) {
         if (rawOrg == null) {
@@ -13,9 +15,13 @@ public class OrganizationParser {
         }
 
         try {
-            String name = assignValue(splitOrg[0]);
+            String name = validateValue(splitOrg[0]);
+            String emailAddress = validateValue(splitOrg[4]);
+            TelecomAddress email = new TelecomAddress("email", emailAddress);
+            String phoneNumber = validateValue(splitOrg[6]);
+            TelecomAddress phone = new TelecomAddress("telephone", phoneNumber);
 
-            Organization parsedOrganization = new Organization(name);
+            Organization parsedOrganization = new Organization(name, email, phone);
 
             return parsedOrganization;
 
@@ -27,12 +33,7 @@ public class OrganizationParser {
 
     }
 
-    private String assignValue(String csvInput) {
-        if("".equals(csvInput)) {
-            return null;
-        }
-        else {
-            return csvInput;
-        }
+    private String validateValue(String csvInput) {
+        return ("".equals(csvInput)) ? null : csvInput;
     }
 }

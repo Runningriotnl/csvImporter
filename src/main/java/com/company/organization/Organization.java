@@ -1,19 +1,20 @@
 package com.company.organization;
 
 import com.company.Addressable;
+import com.company.XelionObjects.TelecomAddress;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Organization extends Addressable {
     private String name;
-    private String email;
-    private String phoneNumber;
+    private List<TelecomAddress> telecomAddresses = new ArrayList<>();
 
     public Organization(String name) {
         this(name, null, null);
     }
 
-    public Organization(String name, String email, String phoneNumber) {
+    public Organization(String name, TelecomAddress email, TelecomAddress phoneNumber) {
         super("Organisation");
 
         if(name == null) {
@@ -21,44 +22,19 @@ public class Organization extends Addressable {
         }
 
         this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        telecomAddresses.add(email);
+        telecomAddresses.add(phoneNumber);
     }
 
     public String getName() {
         return name;
     }
 
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Organization that = (Organization) o;
-        return name.equals(that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
     @Override
     public String toString() {
-        return name;
+        return "Organization{" +
+                "name='" + name + '\'' +
+                ", telecomAddresses=" + telecomAddresses +
+                "} " + super.toString();
     }
-
-    public String toJsonObject() {
-        String jsonObjectString = "{\"objectType\":\"Organisation\", \"commonName\":\"" + getName() + "\"}";
-        return jsonObjectString;
-    }
-
 }

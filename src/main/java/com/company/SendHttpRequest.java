@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.organization.Organization;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class SendHttpRequest {
     private String baseUrl;
-    private String authToken = "xelion 76f49dc49dc2bab335f1ca513334d2bab335f1ca513334d8d0f8ab9e3c5bf8e04ae259e7cf10baecd778679cd61493ac7068785030d189a6987bc6f66948bf35fc320c8cec79264f3f83aa5f7764b4f3701abb8de99c42b611e6fb23de733559a3bea4dd55a248b";
+    private String authToken = "xelion c8c498c498c2bfbbd7d6879408ab32bfbbd7d6879408ab3a87fea02759b6718c579b3820a1ecaaf69f4727e7f923964d476fdb29446710ef926201a375de44b3499d786cbed9e283bc3a18a3b546d26a88662620dd4f0467fdfee082d95ba83092d301e6ef5b79f";
     private Gson gson;
     private Logger logger = LoggerFactory.getLogger(SendHttpRequest.class);
 
@@ -22,7 +23,7 @@ public class SendHttpRequest {
         this.baseUrl = baseUrl;
     }
 
-    public void postAddressableToServer(List<Addressable> objectList) {
+    public void postAddressableToServer(List<? extends Addressable> objectList) {
         gson = new Gson();
         HttpResponse<JsonNode> jsonResponse;
         String apiUrl = baseUrl + "/api/v1/master/addressables";
@@ -31,12 +32,14 @@ public class SendHttpRequest {
 
         for(Addressable addressable: objectList) {
             try {
-                jsonResponse = Unirest.post(apiUrl).header("Authorization", authToken).body(addressable.toJsonObject()).asJson();
+                logger.info(gson.toJson(addressable));
+                jsonResponse = Unirest.post(apiUrl).header("Authorization", authToken).body(gson.toJson(addressable)).asJson();
                 logger.info("Status code: " + jsonResponse.getStatus() + " status text: " + jsonResponse.getStatusText());
-                Type objectType = new TypeToken<Data<Addressable>>() {
-                }.getType();
+                Type objectType = new TypeToken<Data<Addressable>>() {}.getType();
+                logger.info("Raw body response: " + jsonResponse.getBody().toString());
                 Data<Addressable> response = gson.fromJson(jsonResponse.getBody().toString(), objectType);
                 logger.info(response.getObject().toString());
+                addressable.setOid(response.getObject().getOid());
 
             } catch (UnirestException e) {
                 logger.error(e.toString());

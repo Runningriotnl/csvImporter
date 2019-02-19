@@ -9,43 +9,29 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class Writer {
-    Logger logger = LoggerFactory.getLogger(Writer.class);
+    private Logger logger = LoggerFactory.getLogger(Writer.class);
 
-    public void writePerson(Person p) {
-
-        String personName = p.getLastName();
-        String personUserName = p.getUserName();
-        String personOrgName = p.getOrg().getName();
-        String personExtension = (p.getExtensionNumber() == null) ? "" : p.getExtensionNumber().toString();
-        String [] personDescription = { personName, personUserName, personOrgName, personExtension };
-
-        for(int i = 0; i < personDescription.length; i++) {
-            if( personDescription[i].equals("")) {
-                personDescription[i] = "not provided";
-            }
-        }
-
-
-        System.out.println("Person with name " + personDescription[0] +
-                           " has username: " + personDescription[1] + " who works for " + personDescription[2] +
-                           " and gets extension number: " + personDescription[3]);
+    private  void writePerson(Person person) {
+        String personAsJson = new Gson().toJson(person);
+        
+        logger.info("Payload send as: " + personAsJson);
 
     }
 
-    public void writeOrganization(Organization o) {
-        String orgAsJson = new Gson().toJson(o);
+    private void writeOrganization(Organization organization) {
+        String orgAsJson = new Gson().toJson(organization);
 
         logger.info("Payload send as: " + orgAsJson);
 
     }
 
     public void write(List list) {
-        for(Object o : list) {
-            if(o instanceof Person) {
-                writePerson((Person) o);
+        for(Object object : list) {
+            if(object instanceof Person) {
+                writePerson((Person) object);
             }
-            else if(o instanceof Organization) {
-                writeOrganization((Organization) o);
+            else if(object instanceof Organization) {
+                writeOrganization((Organization) object);
             }
 
         }
