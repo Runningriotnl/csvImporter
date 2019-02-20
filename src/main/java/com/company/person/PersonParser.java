@@ -66,7 +66,18 @@ public class PersonParser {
     }
 
     private String translateGender(String gender) {
-        return ("m".equals(gender)) ? "Male" : "Female";
+        if(gender != null) {
+            switch (gender) {
+                case "m":
+                    return "Male";
+                case "v":
+                    return "Female";
+                default:
+                    throw new IllegalArgumentException("Unknown gender '" + gender + "'.");
+            }
+        } else {
+            return null;
+        }
     }
 
 }
