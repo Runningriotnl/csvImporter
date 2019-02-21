@@ -1,6 +1,10 @@
 package com.company.organization;
 
+import com.company.XelionObjects.DeliveryAddress;
 import com.company.XelionObjects.TelecomAddress;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationParser {
     public Organization parseToOrg(String rawOrg) {
@@ -20,8 +24,17 @@ public class OrganizationParser {
             TelecomAddress email = new TelecomAddress("email", emailAddress);
             String phoneNumber = validateValue(splitOrg[6]);
             TelecomAddress phone = new TelecomAddress("telephone", phoneNumber);
+            String street = validateValue(splitOrg[19]);
+            String streetNumber = validateValue(splitOrg[20]);
+            String zipCode = validateValue(splitOrg[21]);
+            String city = validateValue(splitOrg[22]);
+            String country = validateValue(splitOrg[23]);
+            String state = validateValue(splitOrg[24]);
+            DeliveryAddress deliveryAddress = new DeliveryAddress(street, streetNumber, zipCode, city, country, state);
+            List<DeliveryAddress> addresses = new ArrayList<>();
+            addresses.add(deliveryAddress);
 
-            Organization parsedOrganization = new Organization(name, email, phone);
+            Organization parsedOrganization = new Organization(name, email, phone, addresses);
 
             return parsedOrganization;
 

@@ -1,6 +1,7 @@
 package com.company.person;
 
 import com.company.Main;
+import com.company.XelionObjects.DeliveryAddress;
 import com.company.XelionObjects.Employee;
 import com.company.XelionObjects.TelecomAddress;
 import com.company.organization.Organization;
@@ -45,11 +46,21 @@ public class PersonParser {
             telecomAddresses.add(organisationPhone);
             List<Employee> employments = new ArrayList<>();
             employments.add(new Employee(organization, telecomAddresses));
+            String street = validateValue(splitPerson[20]);
+            String streetNumber = validateValue(splitPerson[21]);
+            String zipCode = validateValue(splitPerson[22]);
+            String city = validateValue(splitPerson[23]);
+            String country = validateValue(splitPerson[24]);
+            String state = validateValue(splitPerson[25]);
+            DeliveryAddress deliveryAddress = new DeliveryAddress(street, streetNumber, zipCode, city, country, state);
+            List<DeliveryAddress> addresses = new ArrayList<>();
+            addresses.add(deliveryAddress);
             String gender = translateGender(validateValue(splitPerson[5]));
-            //TODO figure out how to validate and parse this value
-            //Integer extensionNumber = (splitPerson[9] == null || "".equals(splitPerson[9])) ? null : Integer.parseInt(splitPerson[9]);
-
-            Person parsedPerson = new Person(userName, firstName, lastName, employments, gender);
+            String emailAddress = validateValue(splitPerson[15]);
+            TelecomAddress email = new TelecomAddress("email", emailAddress);
+            String phoneNumber = validateValue(splitPerson[16]);
+            TelecomAddress phone = new TelecomAddress("telephone", phoneNumber);
+            Person parsedPerson = new Person(userName, firstName, lastName, employments, addresses, gender, email, phone);
 
             return parsedPerson;
 
