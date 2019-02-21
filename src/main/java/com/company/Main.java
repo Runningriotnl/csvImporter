@@ -6,6 +6,9 @@ import com.company.organization.OrganizationReader;
 import com.company.person.Person;
 import com.company.person.PersonParser;
 import com.company.person.PersonReader;
+import com.company.user.User;
+import com.company.user.UserParser;
+import com.company.user.UserReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +48,17 @@ public class Main {
         request.postAddressableToServer(model.getPersonList());
         writer.write(model.getPersonList());
 
+        UserReader userReader = new UserReader(new UserParser(model));
+        model.getUserList().addAll(userReader.readFile(filePath + "/users.csv"));
+        request.postUserToServer(model.getUserList());
+        writer.write(model.getUserList());
+
     }
 
     public class Model {
         private final List<Organization> organisationList = new ArrayList<>();
         private final List<Person> personList = new ArrayList<>();
+        private final List<User> userList = new ArrayList<>();
 
         public List<Organization> getOrganisationList() {
             return organisationList;
@@ -58,6 +67,8 @@ public class Main {
         public List<Person> getPersonList() {
             return personList;
         }
+
+        public List<User> getUserList() { return userList; }
     }
 
 }
