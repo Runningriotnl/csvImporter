@@ -27,9 +27,10 @@ public class UserParser {
         try {
             String userName = validateValue(splitUser[0]);
             String password = validateValue(splitUser[1]);
+            String extensionNumber = validateValue(splitUser[8]);
             Person person = model.getPersonList().stream().filter(existingPerson -> Objects.equals(userName, existingPerson.getUserName())).findFirst().orElseThrow(() -> new IllegalArgumentException("Person was not found."));
 
-            User parsedUser = new User(userName, password, person);
+            User parsedUser = new User(userName, password, extensionNumber, person);
 
             return parsedUser;
 
