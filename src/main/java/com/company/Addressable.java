@@ -1,9 +1,12 @@
 package com.company;
 
 
+import com.company.XelionObjects.PrimaryLine;
+
 public class Addressable {
     private String objectType;
     private String oid;
+    private PrimaryLine primaryLine;
 
     public Addressable() {
 
@@ -19,6 +22,10 @@ public class Addressable {
         return this;
     }
 
+    public PrimaryLine getPrimaryLine() {
+        return primaryLine;
+    }
+
     public String getOid() {
         return oid;
     }
@@ -32,6 +39,7 @@ public class Addressable {
         return "Addressable{" +
                 "objectType='" + objectType + '\'' +
                 ", oid='" + oid + '\'' +
+                ", primaryLine=" + primaryLine +
                 '}';
     }
 }

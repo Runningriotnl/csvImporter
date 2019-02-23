@@ -18,6 +18,7 @@ public class Main {
     private ReaderManager readerManager;
     private Writer writer;
     private SendHttpRequest request;
+    private PhoneLineExtension phoneLineExtension;
     private String baseUrl = "http://10.78.40.157";
 
     public Main() {
@@ -26,6 +27,7 @@ public class Main {
         readerManager = new ReaderManager();
         request = new SendHttpRequest(baseUrl);
         writer = new Writer();
+
 
     }
 
@@ -52,6 +54,10 @@ public class Main {
         model.getUserList().addAll(userReader.readFile(filePath + "/users.csv"));
         request.postUserToServer(model.getUserList());
         writer.write(model.getUserList());
+
+        PhoneLineExtension phoneLineExtension = new PhoneLineExtension(model);
+        phoneLineExtension.addExtensionsToPhoneLine();
+
 
     }
 
