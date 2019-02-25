@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.XelionObjects.Operation;
-import com.company.user.User;
+import com.company.XelionObjects.PatchOperation;
+import com.company.XelionObjects.PatchDocument;
 import com.company.user.UserParserException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,13 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class SendHttpRequest {
     private String baseUrl;
-    private String authToken = "xelion 1a08d7d8d7def0ac8835abecc0892ef0ac8835abecc08924d664ba06ba4247bb06a8415c58bdd1975025f9f7ff4096404c5c2b5a1c7e8050e2f225d99965c2d7330ae721cf0ceaad6b468a62834f4d48a0e0150fce6cead224712b8c7668f3eabaacf38ac36ff24";
+    private String authToken = "xelion 701b0cfb0cfd2b8a7389e7f6bffecd2b8a7389e7f6bffec8605797b27d95c149033dd8cea8bc9c91e33f549efb76fa42a5ae5fd8dc1b0af08e4150bdcc87445f6dee4b20b6df3b2e4ebfe9b1247c2887610a18c4b67c744583e68f911dc8ddff3e30b14f109edec";
     private Gson gson;
     private Logger logger = LoggerFactory.getLogger(SendHttpRequest.class);
 
@@ -84,19 +83,13 @@ public class SendHttpRequest {
         gson = new Gson();
         HttpResponse<JsonNode> jsonResponse;
         String apiUrl = baseUrl + "/api/v1/master/phonelines/" + phoneLineOID;
-        Operation operationAdd = new Operation();
-        Operation operationReplace = new Operation(extensionNumber);
-        List<Operation> operations = new ArrayList<>();
-        operations.add(operationAdd);
-        operations.add(operationReplace);
+        PatchDocument patchDocument = new PatchDocument();
+        patchDocument.add(PatchOperation.add("/extensions/1"));
+        patchDocument.add(PatchOperation.replace("/extensions/1/address", extensionNumber));
         try {
-            logger.info("The gson build json thing: " + gson.toJson(operationAdd));
-            jsonResponse = Unirest.patch(apiUrl).header("Authorization", authToken).body(gson.toJson(operationAdd)).asJson();
-            logger.info("The gson build json thing: " + gson.toJson(operationReplace));
-            jsonResponse = Unirest.patch(apiUrl).header("Authorization", authToken).body(gson.toJson(operationReplace)).asJson();
+            logger.info(gson.toJson(patchDocument));
+            jsonResponse = Unirest.patch(apiUrl).header("Authorization", authToken).body(gson.toJson(patchDocument)).asJson();
             logger.info("Status code: " + jsonResponse.getStatus() + " status text: " + jsonResponse.getStatusText());
-            Type objectType = new TypeToken<Data<Addressable>>() {}.getType();
-            logger.info("Raw body response: " + jsonResponse.getBody().toString());
         }
         catch (UnirestException e) {
             logger.error(e.toString());
