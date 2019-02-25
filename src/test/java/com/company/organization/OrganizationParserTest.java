@@ -1,6 +1,9 @@
 package com.company.organization;
 
+import com.company.XelionObjects.TelecomAddress;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,8 +22,8 @@ public class OrganizationParserTest {
         String rawOrganization = "X,,,,Y,,Z,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
-        assertEquals("Organization email must match." , "Y", organization.getEmail());
-        assertEquals("Organization phone number must match." , "Z", organization.getPhoneNumber());
+        assertEquals("Organization email must match." , "Y", getOrgEmail(organization));
+        assertEquals("Organization phone number must match." , "Z", getOrgPhoneNumber(organization));
     }
 
     @Test(expected = OrganizationParserException.class)
@@ -36,8 +39,8 @@ public class OrganizationParserTest {
         String rawOrganization = "X,,,,,,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
-        assertEquals("Organization email must match." , "", organization.getEmail());
-        assertEquals("Organization phone number must match." , "", organization.getPhoneNumber());
+        assertEquals("Organization email must match." , null, getOrgEmail(organization));
+        assertEquals("Organization phone number must match." , null, getOrgPhoneNumber(organization));
     }
 
     @Test(expected = OrganizationParserException.class)
@@ -45,5 +48,25 @@ public class OrganizationParserTest {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = ",,,,,,,,,,,,,,,,,,,,,,,,,,";
         Organization organization = organizationParser.parseToOrg(rawOrganization);
+    }
+
+    public String getOrgEmail(Organization org) {
+        List<TelecomAddress> orgTelecomAddresses = org.getTelecomAddresses();
+        for(TelecomAddress telecomAddress : orgTelecomAddresses) {
+            if("email".equals(telecomAddress.getTelecomType())) {
+                return telecomAddress.getAddress();
+            }
+        }
+        return null;
+    }
+
+    public String getOrgPhoneNumber(Organization org) {
+        List<TelecomAddress> orgTelecomAddresses = org.getTelecomAddresses();
+        for(TelecomAddress telecomAddress : orgTelecomAddresses) {
+            if("telephone".equals(telecomAddress.getTelecomType())) {
+                return telecomAddress.getAddress();
+            }
+        }
+        return null;
     }
 }
