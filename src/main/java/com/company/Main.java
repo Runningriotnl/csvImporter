@@ -40,17 +40,17 @@ public class Main {
         // Manager reads filename and decides which reader parser and writer to use
         //List readerList = readerManager.createReaders();
 
-        OrganizationReader organizationReader = new OrganizationReader(new OrganizationParser());
+        Reader organizationReader = new OrganizationReader(new OrganizationParser());
         model.getOrganisationList().addAll(organizationReader.readFile(filePath + "/organisations.csv"));
         request.postAddressableToServer(model.getOrganisationList());
         writer.write(model.getOrganisationList());
 
-        PersonReader personReader = new PersonReader(new PersonParser(model));
+        Reader personReader = new PersonReader(new PersonParser(model));
         model.getPersonList().addAll(personReader.readFile(filePath + "/persons.csv"));
         request.postAddressableToServer(model.getPersonList());
         writer.write(model.getPersonList());
 
-        UserReader userReader = new UserReader(new UserParser(model));
+        Reader userReader = new UserReader(new UserParser(model));
         model.getUserList().addAll(userReader.readFile(filePath + "/users.csv"));
         request.postUserToServer(model.getUserList());
         writer.write(model.getUserList());

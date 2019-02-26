@@ -1,6 +1,7 @@
 package com.company.person;
 
 import com.company.Main;
+import com.company.Parser;
 import com.company.XelionObjects.DeliveryAddress;
 import com.company.XelionObjects.Employee;
 import com.company.XelionObjects.TelecomAddress;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PersonParser {
+public class PersonParser implements Parser<Person> {
 
     private Main.Model model;
 
@@ -18,13 +19,13 @@ public class PersonParser {
         this.model = model;
     }
 
-    public Person parseToPerson(String rawPerson) {
+    public Person parse(String string) {
 
-        if (rawPerson == null) {
-            throw new IllegalArgumentException("rawPerson must not be null.");
+        if (string == null) {
+            throw new IllegalArgumentException("string must not be null.");
         }
 
-        String[] splitPerson = rawPerson.split(",", -1);
+        String[] splitPerson = string.split(",", -1);
 
         if (splitPerson.length != 26) {
             throw new PersonParserException("Input format is wrong");
@@ -65,9 +66,9 @@ public class PersonParser {
             return parsedPerson;
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new PersonParserException("Could not create person from rawPerson.", e);
+            throw new PersonParserException("Could not create person from string.", e);
         } catch (IllegalArgumentException e) {
-            throw new PersonParserException("Could not create person from rawPerson.", e);
+            throw new PersonParserException("Could not create person from string.", e);
         }
 
     }

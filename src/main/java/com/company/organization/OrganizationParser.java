@@ -1,18 +1,19 @@
 package com.company.organization;
 
+import com.company.Parser;
 import com.company.XelionObjects.DeliveryAddress;
 import com.company.XelionObjects.TelecomAddress;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganizationParser {
-    public Organization parseToOrg(String rawOrg) {
-        if (rawOrg == null) {
-            throw new IllegalArgumentException("rawOrg must not be null.");
+public class OrganizationParser implements Parser<Organization> {
+    public Organization parse(String string) {
+        if (string == null) {
+            throw new IllegalArgumentException("string must not be null.");
         }
 
-        String[] splitOrg = rawOrg.split(",", -1);
+        String[] splitOrg = string.split(",", -1);
 
         if (splitOrg.length != 25) {
             throw new OrganizationParserException("Input format is wrong");
@@ -39,9 +40,9 @@ public class OrganizationParser {
             return parsedOrganization;
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new OrganizationParserException("Could not create Organization from rawOrg.", e);
+            throw new OrganizationParserException("Could not create Organization from string.", e);
         } catch (IllegalArgumentException e) {
-            throw new OrganizationParserException("Could not create Organization from rawOrg.", e);
+            throw new OrganizationParserException("Could not create Organization from string.", e);
         }
 
     }

@@ -1,5 +1,6 @@
 package com.company.organization;
 
+import com.company.Parser;
 import com.company.Reader;
 
 import java.io.BufferedReader;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public class OrganizationReader implements Reader {
 
-    private OrganizationParser orgParser;
+    private Parser<Organization> parser;
 
-    public OrganizationReader(OrganizationParser orgParser) {
-        this.orgParser = orgParser;
+    public OrganizationReader(Parser<Organization> parser) {
+        this.parser = parser;
     }
 
     public List<Organization> readFile(String fileName) {
@@ -24,7 +25,7 @@ public class OrganizationReader implements Reader {
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
-                    orgList.add(orgParser.parseToOrg(line));
+                    orgList.add(parser.parse(line));
                 } catch (OrganizationParserException e) {
                     System.out.println("Skipped entry on line " + counter);
                     e.printStackTrace();

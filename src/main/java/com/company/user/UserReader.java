@@ -1,5 +1,6 @@
 package com.company.user;
 
+import com.company.Parser;
 import com.company.Reader;
 
 import java.io.BufferedReader;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public class UserReader implements Reader{
 
-    private UserParser userParser;
+    private Parser<User> parser;
 
-    public UserReader(UserParser userParser) {
-        this.userParser = userParser;
+    public UserReader(Parser<User> parser) {
+        this.parser = parser;
     }
 
     public List<User> readFile(String fileName) {
@@ -24,7 +25,7 @@ public class UserReader implements Reader{
             int counter = 1;
             while ((line = br.readLine()) != null) {
                 try {
-                    userList.add(userParser.parseToUser(line));
+                    userList.add(parser.parse(line));
                 } catch (UserParserException e) {
                     System.out.println("Skipped entry on line " + counter);
                     e.printStackTrace();
