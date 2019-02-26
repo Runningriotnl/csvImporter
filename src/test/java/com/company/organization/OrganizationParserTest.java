@@ -13,14 +13,14 @@ public class OrganizationParserTest {
     public void nullInputOrganizationParserTest() {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = null;
-        organizationParser.parseToOrg(rawOrganization);
+        organizationParser.parse(rawOrganization);
     }
 
     @Test
     public void inputMatchesFieldsTest() {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = "X,,,,Y,,Z,,,,,,,,,,,,,,,,,,";
-        Organization organization = organizationParser.parseToOrg(rawOrganization);
+        Organization organization = organizationParser.parse(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , "Y", getOrgEmail(organization));
         assertEquals("Organization phone number must match." , "Z", getOrgPhoneNumber(organization));
@@ -30,14 +30,14 @@ public class OrganizationParserTest {
     public void emptyStringInputTest() {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = "";
-        organizationParser.parseToOrg(rawOrganization);
+        organizationParser.parse(rawOrganization);
     }
 
     @Test
     public void onlyOrganizationNameTest() {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = "X,,,,,,,,,,,,,,,,,,,,,,,,";
-        Organization organization = organizationParser.parseToOrg(rawOrganization);
+        Organization organization = organizationParser.parse(rawOrganization);
         assertEquals("Organization name must match." , "X", organization.getName());
         assertEquals("Organization email must match." , null, getOrgEmail(organization));
         assertEquals("Organization phone number must match." , null, getOrgPhoneNumber(organization));
@@ -47,7 +47,7 @@ public class OrganizationParserTest {
     public void extraCommaInCSVTest() {
         OrganizationParser organizationParser = new OrganizationParser();
         String rawOrganization = ",,,,,,,,,,,,,,,,,,,,,,,,,,";
-        Organization organization = organizationParser.parseToOrg(rawOrganization);
+        Organization organization = organizationParser.parse(rawOrganization);
     }
 
     public String getOrgEmail(Organization org) {

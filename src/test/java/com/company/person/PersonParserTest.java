@@ -25,7 +25,7 @@ public class PersonParserTest {
     public void personParserTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson = null;
-        personParser.parseToPerson(rawPerson);
+        personParser.parse(rawPerson);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class PersonParserTest {
         String rawPerson = "X,,,,,,Y,Z,,1,,,,,,,,,,,,,,,,";
         Organization org = new Organization("Y");
         model.getOrganisationList().add(org);
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Username should match.", "X", person.getUserName());
         assertEquals("Email should match.", "Z", getEmploymentEmail(person));
         assertEquals("PhoneNumber should match.", "1", getEmploymentPhoneNumber(person));
@@ -45,14 +45,14 @@ public class PersonParserTest {
     public void emptyStringTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson = "";
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
     }
 
     @Test(expected = PersonParserException.class)
     public void onlyUserNameTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson ="X,,,,,,,,,,,,,,,,,,,,,,,,,";
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Username should match.", "X", person.getUserName());
     }
 
@@ -62,7 +62,7 @@ public class PersonParserTest {
         String rawPerson = "X,,,,,,Y,,,1,,,,,,,,,,,,,,,,";
         Organization org = new Organization("Y");
         model.getOrganisationList().add(org);
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Username should match.", "X", person.getUserName());
         assertEquals("Employment Phone Number should match.", "1", getEmploymentPhoneNumber(person));
     }
@@ -71,7 +71,7 @@ public class PersonParserTest {
     public void extensionIsNotAnIntTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson = "X,,,,,,Y,Z,,A,,,,,,,,,,,,,,,,";
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PersonParserTest {
         String rawPerson = "1X,,,,,,Y,,,,,,,,,,,,,,,,,,,";
         Organization org = new Organization("Y");
         model.getOrganisationList().add(org);
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Username should match.", "1X", person.getUserName());
     }
 
@@ -90,7 +90,7 @@ public class PersonParserTest {
         String rawPerson = "1,,,,,,Y,,,,,,,,,,,,,,,,,,,";
         Organization org = new Organization("Y");
         model.getOrganisationList().add(org);
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Username should match.", "1", person.getUserName());
     }
 
@@ -100,7 +100,7 @@ public class PersonParserTest {
         String rawPerson = "X,,,,,,\"Y\",Z,,1,,,,,,,,,,,,,,,,";
         Organization org = new Organization("\"Y\"");
         model.getOrganisationList().add(org);
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
         assertEquals("Organization should match.", org, getEmploymentOrganisation(person));
     }
 
@@ -108,14 +108,14 @@ public class PersonParserTest {
     public void commaAddedBeforeExtensionInFieldsTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson = "X,,,,,,,Y,Z,,1,,,,,,,,,,,,,,,,";
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
     }
 
     @Test(expected = PersonParserException.class)
     public void commaAddedAfterExtensionInFieldsTest() {
         PersonParser personParser = new PersonParser(model);
         String rawPerson = "X,,,,,,Y,Z,,1,,,,,,,,,,,,,,,,,";
-        Person person = personParser.parseToPerson(rawPerson);
+        Person person = personParser.parse(rawPerson);
     }
 
     public String getEmploymentEmail(Person person) {
