@@ -59,5 +59,4 @@ public class Person extends Addressable {
         return gender;
     }
 
-
 }

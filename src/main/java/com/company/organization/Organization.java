@@ -33,4 +33,11 @@ public class Organization extends Addressable {
         return name;
     }
 
+    public List<TelecomAddress> getTelecomAddresses() {
+        return telecomAddresses;
+    }
+
+    public List<DeliveryAddress> getAddresses() {
+        return addresses;
+    }
 }

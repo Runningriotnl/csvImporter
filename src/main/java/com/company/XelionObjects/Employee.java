@@ -13,4 +13,12 @@ public class Employee {
         this.organisation = organisation;
         this.telecomAddresses = telecomAddresses;
     }
+
+    public Organization getOrganisation() {
+        return organisation;
+    }
+
+    public List<TelecomAddress> getTelecomAddresses() {
+        return telecomAddresses;
+    }
 }

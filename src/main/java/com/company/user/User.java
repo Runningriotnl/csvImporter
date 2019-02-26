@@ -28,4 +28,28 @@ public class User extends Addressable {
     public String getExtensionNumber() {
         return extensionNumber;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public String getPhoneLineOID() {
+        return phoneLineOID;
+    }
 }

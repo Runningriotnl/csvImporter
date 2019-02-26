@@ -9,6 +9,14 @@ public class TelecomAddress {
         this.address = address;
     }
 
+    public String getTelecomType() {
+        return telecomType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     @Override
     public String toString() {
         return "TelecomAddress{" +
