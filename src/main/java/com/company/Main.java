@@ -10,8 +10,13 @@ import com.company.user.User;
 import com.company.user.UserParser;
 import com.company.user.UserReader;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Main {
     private Model model;
@@ -37,8 +42,7 @@ public class Main {
     }
 
     private void execute(String filePath) {
-        // Manager reads filename and decides which reader parser and writer to use
-        //List readerList = readerManager.createReaders();
+        validateAllFilesPresent(filePath);
 
         Reader organizationReader = new OrganizationReader(new OrganizationParser());
         model.getOrganisationList().addAll(organizationReader.readFile(filePath + "/organisations.csv"));
@@ -57,8 +61,6 @@ public class Main {
 
         PhoneLineExtension phoneLineExtension = new PhoneLineExtension(model);
         phoneLineExtension.addExtensionsToPhoneLine();
-
-
     }
 
     public class Model {
@@ -77,4 +79,20 @@ public class Main {
         public List<User> getUserList() { return userList; }
     }
 
+    private void validateAllFilesPresent(String filePath) {
+        Path directoryPath = Paths.get(filePath);
+        if (Files.isDirectory(directoryPath)) {
+            List<Path> csvPaths = new ArrayList<>();
+            csvPaths.add(Paths.get(filePath + "/organisations.csv"));
+            csvPaths.add(Paths.get(filePath + "/persons.csv"));
+            csvPaths.add(Paths.get(filePath + "/users.csv"));
+            csvPaths.add(Paths.get(filePath + "/phonelines.csv"));
+            csvPaths.add(Paths.get(filePath + "/phones.csv"));
+            for (Path path : csvPaths) {
+                if (Files.notExists(path)) {
+                    throw new ReaderException("Not all necessary files are present in given filePath.");
+                }
+            }
+        }
+    }
 }
