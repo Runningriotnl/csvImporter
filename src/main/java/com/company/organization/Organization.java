@@ -24,8 +24,12 @@ public class Organization extends Addressable {
         }
 
         this.name = name;
-        telecomAddresses.add(email);
-        telecomAddresses.add(phoneNumber);
+        if(email != null) {
+            telecomAddresses.add(email);
+        }
+        if(phoneNumber != null){
+            telecomAddresses.add(phoneNumber);
+        }
         this.addresses = addresses;
     }
 

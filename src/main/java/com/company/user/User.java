@@ -11,6 +11,7 @@ public class User extends Addressable {
     private String commonName;
     private String extensionNumber;
     private String phoneLineOID;
+    private boolean userLicense;
 
 
     public User(String userName, String password, String extensionNumber, Person person) {
@@ -22,6 +23,7 @@ public class User extends Addressable {
         this.person = person;
         this.commonName = userName;
         this.active = true;
+        this.userLicense = true;
         this.phoneLineOID = null;
     }
 
@@ -51,5 +53,9 @@ public class User extends Addressable {
 
     public String getPhoneLineOID() {
         return phoneLineOID;
+    }
+
+    public boolean isUserLicense() {
+        return userLicense;
     }
 }
