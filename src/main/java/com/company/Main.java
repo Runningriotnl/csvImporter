@@ -14,23 +14,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
+
+import static java.util.List.of;
 
 public class Main {
     private Model model;
     private ReaderManager readerManager;
     private Writer writer;
     private SendHttpRequest request;
-    private PhoneLineExtension phoneLineExtension;
+    private PhoneLineExtensionCreator phoneLineExtensionCreator;
     private String baseUrl = "http://10.78.40.157";
+    private HttpRequestAssembler httpAssembler;
+
+    private String authToken = "xelion 3ff5aac5aac38dba931c74d28ff2d38dba931c74d28ff2d69850390be20d9783c6da1cf7d9259a0cb6b84a8e05185eb107e179479518cca3e90b39415c049945b70ec0f9975d082f9dfc9f0b3b54d8d152749792666ab58caea69f9c0e96793716504da999da64c";
 
     public Main() {
 
         model = new Model();
         readerManager = new ReaderManager();
-        request = new SendHttpRequest(baseUrl);
+        httpAssembler = new JavaHttpRequest(authToken);
+        request = new SendHttpRequest(baseUrl, httpAssembler);
         writer = new Writer();
 
 
@@ -59,8 +63,8 @@ public class Main {
         request.postUserToServer(model.getUserList());
         writer.write(model.getUserList());
 
-        PhoneLineExtension phoneLineExtension = new PhoneLineExtension(model);
-        phoneLineExtension.addExtensionsToPhoneLine();
+        PhoneLineExtensionCreator phoneLineExtensionCreator = new PhoneLineExtensionCreator(model, request);
+        phoneLineExtensionCreator.addExtensionsToPhoneLine();
     }
 
     public class Model {
