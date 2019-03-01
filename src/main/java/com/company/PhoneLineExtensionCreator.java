@@ -2,18 +2,16 @@ package com.company;
 
 import com.company.user.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PhoneLineExtension {
+public class PhoneLineExtensionCreator {
 
-    private String baseUrl = "http://10.78.40.157";
     private Main.Model model;
-    SendHttpRequest request = new SendHttpRequest(baseUrl);
+    SendHttpRequest request;
 
-
-    public PhoneLineExtension(Main.Model model) {
+    public PhoneLineExtensionCreator(Main.Model model, SendHttpRequest request) {
         this.model = model;
+        this.request = request;
     }
 
     public void addExtensionsToPhoneLine() {
